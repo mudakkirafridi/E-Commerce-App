@@ -77,7 +77,7 @@ class _HomeState extends State<Home> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Image.asset(
-                                  'images/food.png',
+                                  'images/ice-cream.png',
                                   height: 150,
                                   width: 150,
                                   fit: BoxFit.cover,
