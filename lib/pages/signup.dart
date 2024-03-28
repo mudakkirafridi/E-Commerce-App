@@ -1,4 +1,6 @@
+import 'package:e_commerce_app/pages/bottom_nav.dart';
 import 'package:e_commerce_app/pages/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/widget_support.dart';
@@ -11,6 +13,30 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  String name = '', email = '', password = '';
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+
+  registration(String name, String email, String password) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const BottomNav()));
+    } on FirebaseException catch (e) {
+      if (e.code == 'weak-password') {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Your Password Is Weak')));
+      } else if (e.code == 'email-already-in-use') {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Your Email Is Already In Use')));
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,71 +91,109 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20)),
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Text(
-                            'SignUp',
-                            style: AppWidget.headlineTextStyle(),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          TextField(
-                            decoration: InputDecoration(
-                                hintText: "Name",
-                                hintStyle: AppWidget.semiBoldTextStyle(),
-                                prefixIcon: const Icon(Icons.person_outline)),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          TextField(
-                            decoration: InputDecoration(
-                                hintText: "Email",
-                                hintStyle: AppWidget.semiBoldTextStyle(),
-                                prefixIcon: const Icon(Icons.email_outlined)),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          TextField(
-                            obscureText: true,
-                            decoration: InputDecoration(
-                                hintText: "Password",
-                                hintStyle: AppWidget.semiBoldTextStyle(),
-                                prefixIcon: const Icon(Icons.lock_outline)),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          const SizedBox(
-                            height: 50,
-                          ),
-                          Material(
-                            elevation: 5,
-                            borderRadius: BorderRadius.circular(20),
-                            child: Container(
-                              width: 200,
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              decoration: BoxDecoration(
-                                  color: const Color(0xffff5722),
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: const Center(
-                                child: Text(
-                                  "SignUp",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontFamily: "Poppins",
-                                      fontWeight: FontWeight.bold),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Text(
+                              'SignUp',
+                              style: AppWidget.headlineTextStyle(),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            TextFormField(
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please Enter Name';
+                                }
+                              },
+                              controller: nameController,
+                              decoration: InputDecoration(
+                                  hintText: "Name",
+                                  hintStyle: AppWidget.semiBoldTextStyle(),
+                                  prefixIcon: const Icon(Icons.person_outline)),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            TextFormField(
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please Enter Email';
+                                }
+                              },
+                              controller: emailController,
+                              decoration: InputDecoration(
+                                  hintText: "Email",
+                                  hintStyle: AppWidget.semiBoldTextStyle(),
+                                  prefixIcon: const Icon(Icons.email_outlined)),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            TextFormField(
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please Enter Password';
+                                }
+                              },
+                              controller: passwordController,
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                  hintText: "Password",
+                                  hintStyle: AppWidget.semiBoldTextStyle(),
+                                  prefixIcon: const Icon(Icons.lock_outline)),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            const SizedBox(
+                              height: 50,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                if (_formKey.currentState!.validate()) {
+                                  setState(() {
+                                    email = emailController.text.toString();
+                                    password =
+                                        passwordController.text.toString();
+                                    name = nameController.text.toString();
+                                  });
+                                  registration(
+                                      nameController.text.toString(),
+                                      emailController.text.toString(),
+                                      passwordController.text.toString());
+                                }
+                              },
+                              child: Material(
+                                elevation: 5,
+                                borderRadius: BorderRadius.circular(20),
+                                child: Container(
+                                  width: 200,
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8),
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xffff5722),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: const Center(
+                                    child: Text(
+                                      "SignUp",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontFamily: "Poppins",
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
