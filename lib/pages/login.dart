@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/pages/bottom_nav.dart';
+import 'package:e_commerce_app/pages/forgot_password.dart';
 import 'package:e_commerce_app/pages/signup.dart';
 import 'package:e_commerce_app/widgets/widget_support.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -134,7 +135,13 @@ class _LogInScreenState extends State<LogInScreen> {
                             Container(
                               alignment: Alignment.bottomRight,
                               child: TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const ForgotScreen()));
+                                },
                                 child: Text(
                                   'Forgot Password?',
                                   style: AppWidget.semiBoldTextStyle(),
