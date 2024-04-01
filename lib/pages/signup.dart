@@ -170,7 +170,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 }
                               },
                               child: Material(
-                                elevation: 5,
+                                elevation: 30,
                                 borderRadius: BorderRadius.circular(20),
                                 child: Container(
                                   width: 200,

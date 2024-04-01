@@ -167,21 +167,26 @@ class _LogInScreenState extends State<LogInScreen> {
                                         passwordController.text.toString());
                                   }
                                 },
-                                child: Container(
-                                  width: 200,
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 8),
-                                  decoration: BoxDecoration(
-                                      color: const Color(0xffff5722),
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: const Center(
-                                    child: Text(
-                                      "LogIn",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontFamily: "Poppins",
-                                          fontWeight: FontWeight.bold),
+                                child: Material(
+                                  elevation: 30,
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Container(
+                                    width: 200,
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 8),
+                                    decoration: BoxDecoration(
+                                        color: const Color(0xffff5722),
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    child: const Center(
+                                      child: Text(
+                                        "LogIn",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontFamily: "Poppins",
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
                                   ),
                                 ),
