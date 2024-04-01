@@ -26,7 +26,7 @@ class _BottomNavState extends State<BottomNav> {
     orderScreen = const OrderScreen();
     profileScreen = const ProfileScreen();
     walletSreen = const WalletSreen();
-    pages = [homePage, orderScreen, profileScreen, walletSreen];
+    pages = [homePage, orderScreen, walletSreen, profileScreen];
     super.initState();
   }
 

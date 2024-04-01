@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/admin/admin_login.dart';
 import 'package:e_commerce_app/firebase_options.dart';
 import 'package:e_commerce_app/pages/bottom_nav.dart';
 import 'package:e_commerce_app/pages/details.dart';
@@ -5,6 +6,7 @@ import 'package:e_commerce_app/pages/forgot_password.dart';
 import 'package:e_commerce_app/pages/login.dart';
 import 'package:e_commerce_app/pages/onboard.dart';
 import 'package:e_commerce_app/pages/signup.dart';
+import 'package:e_commerce_app/pages/wallet.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -24,10 +26,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 252, 251, 253)),
         useMaterial3: true,
       ),
-      home: const ForgotScreen(),
+      home: const LogInScreen(),
     );
   }
 }

@@ -82,7 +82,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   ),
                   Material(
                     borderRadius: BorderRadius.circular(20),
-                    elevation: 9,
+                    elevation: 100,
                     child: Container(
                       padding: const EdgeInsets.only(left: 20, right: 20),
                       height: MediaQuery.of(context).size.height / 2,

@@ -84,7 +84,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                               decoration: const InputDecoration(
                                   hintText: "Enter Email",
                                   hintStyle: TextStyle(
-                                      color: Colors.white, fontSize: 18),
+                                      color: Colors.grey, fontSize: 18),
                                   prefixIcon: Icon(
                                     Icons.email_outlined,
                                     color: Colors.white,
@@ -152,7 +152,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                                 child: const Text(
                                   ' Create',
                                   style: TextStyle(
-                                      color: Colors.yellow, fontSize: 20),
+                                      color: Colors.white, fontSize: 20),
                                 ),
                               )
                             ],
