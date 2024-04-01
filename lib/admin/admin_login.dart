@@ -9,6 +9,8 @@ class AdminLoginScreen extends StatefulWidget {
 }
 
 class _AdminLoginScreenState extends State<AdminLoginScreen> {
+  final passwordController = TextEditingController();
+  final usernameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                         style: AppWidget.semiBoldTextStyle(),
                       ),
                       const SizedBox(
-                        height: 30,
+                        height: 40,
                       ),
                       Material(
                         elevation: 100,
@@ -58,6 +60,89 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              Container(
+                                padding: const EdgeInsets.only(
+                                    left: 5, right: 5, top: 20),
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                decoration: const BoxDecoration(),
+                                child: Center(
+                                  child: TextFormField(
+                                    decoration: InputDecoration(
+                                        hintText: "Enter Username",
+                                        hintStyle: AppWidget.lightTextStyle(),
+                                        focusedBorder: const OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.black)),
+                                        enabledBorder: const OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.black)),
+                                        border: InputBorder.none),
+                                    controller: usernameController,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "Please Fill Username";
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.only(
+                                    left: 5, right: 5, top: 20),
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                decoration: const BoxDecoration(),
+                                child: Center(
+                                  child: TextFormField(
+                                    decoration: InputDecoration(
+                                        hintText: "Enter Password",
+                                        hintStyle: AppWidget.lightTextStyle(),
+                                        focusedBorder: const OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.black)),
+                                        enabledBorder: const OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.black)),
+                                        border: InputBorder.none),
+                                    controller: passwordController,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "Please Fill Password";
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              Material(
+                                elevation: 30,
+                                child: Container(
+                                  width: 160,
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      color: Colors.black,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: const Center(
+                                    child: Text(
+                                      'Admin LogIn',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       )
