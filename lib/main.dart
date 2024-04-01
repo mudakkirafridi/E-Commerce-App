@@ -1,4 +1,6 @@
 import 'package:e_commerce_app/admin/admin_login.dart';
+import 'package:e_commerce_app/admin/food_add_screen.dart';
+import 'package:e_commerce_app/admin/home.dart';
 import 'package:e_commerce_app/firebase_options.dart';
 import 'package:e_commerce_app/pages/bottom_nav.dart';
 import 'package:e_commerce_app/pages/details.dart';
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
             seedColor: const Color.fromARGB(255, 252, 251, 253)),
         useMaterial3: true,
       ),
-      home: const AdminLoginScreen(),
+      home: const FoodAddScreen(),
     );
   }
 }

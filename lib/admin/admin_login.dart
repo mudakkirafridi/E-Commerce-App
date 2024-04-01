@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_app/admin/home.dart';
 import 'package:e_commerce_app/widgets/widget_support.dart';
 import 'package:flutter/material.dart';
 
@@ -123,21 +125,27 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                               const SizedBox(
                                 height: 25,
                               ),
-                              Material(
-                                elevation: 30,
-                                child: Container(
-                                  width: 160,
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      color: Colors.black,
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: const Center(
-                                    child: Text(
-                                      'Admin LogIn',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
+                              InkWell(
+                                onTap: () {
+                                  adminLoginFunc();
+                                },
+                                child: Material(
+                                  elevation: 30,
+                                  child: Container(
+                                    width: 160,
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                        color: Colors.black,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: const Center(
+                                      child: Text(
+                                        'Admin LogIn',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -153,5 +161,26 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
         ),
       ),
     );
+  }
+
+  adminLoginFunc() {
+    FirebaseFirestore.instance.collection("admin").get().then((snapshot) {
+      snapshot.docs.forEach((result) {
+        {
+          if (result.data()['username'] != usernameController.text.trim()) {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Username Is Incorrect')));
+          } else if (result.data()['password'] !=
+              passwordController.text.trim()) {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Password Is Incorrect')));
+          } else {
+            Route route = MaterialPageRoute(
+                builder: (context) => const AdminHomeScreen());
+            Navigator.pushReplacement(context, route);
+          }
+        }
+      });
+    });
   }
 }
