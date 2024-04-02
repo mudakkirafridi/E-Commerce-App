@@ -5,6 +5,7 @@ import 'package:e_commerce_app/firebase_options.dart';
 import 'package:e_commerce_app/pages/bottom_nav.dart';
 import 'package:e_commerce_app/pages/details.dart';
 import 'package:e_commerce_app/pages/forgot_password.dart';
+import 'package:e_commerce_app/pages/home.dart';
 import 'package:e_commerce_app/pages/login.dart';
 import 'package:e_commerce_app/pages/onboard.dart';
 import 'package:e_commerce_app/pages/signup.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
             seedColor: const Color.fromARGB(255, 252, 251, 253)),
         useMaterial3: true,
       ),
-      home: const FoodAddScreen(),
+      home: const Home(),
     );
   }
 }

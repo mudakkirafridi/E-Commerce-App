@@ -12,4 +12,8 @@ class MyDatabaseMethod {
   Future addFoodItem(Map<String, dynamic> userInfo, String name) async {
     return await FirebaseFirestore.instance.collection(name).add(userInfo);
   }
+
+  Future<Stream<QuerySnapshot>> getFoodItem(String name) async {
+    return await FirebaseFirestore.instance.collection(name).snapshots();
+  }
 }
