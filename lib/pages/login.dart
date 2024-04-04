@@ -1,5 +1,7 @@
+import 'package:e_commerce_app/admin/admin_login.dart';
 import 'package:e_commerce_app/pages/bottom_nav.dart';
 import 'package:e_commerce_app/pages/forgot_password.dart';
+import 'package:e_commerce_app/pages/home.dart';
 import 'package:e_commerce_app/pages/signup.dart';
 import 'package:e_commerce_app/widgets/widget_support.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -165,6 +167,11 @@ class _LogInScreenState extends State<LogInScreen> {
                                     logInFunction(
                                         emailController.text.toString(),
                                         passwordController.text.toString());
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const Home()));
                                   }
                                 },
                                 child: Material(
@@ -220,6 +227,24 @@ class _LogInScreenState extends State<LogInScreen> {
                             style: AppWidget.semiBoldTextStyle(),
                           ))
                     ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AdminLoginScreen()));
+                    },
+                    child: Container(
+                      height: 30,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: Colors.black)),
+                      child: const Center(child: Text('Admin LogIn')),
+                    ),
                   )
                 ],
               ),

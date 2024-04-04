@@ -15,13 +15,14 @@ class _HomeState extends State<Home> {
   bool iceCream = false, pizza = false, salad = false, burger = false;
   Stream? foodItemStream;
   onTheLoad() async {
-    foodItemStream = await MyDatabaseMethod().getFoodItem("pizza");
+    foodItemStream = await MyDatabaseMethod().getFoodItem("Burger");
     setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
+    onTheLoad();
   }
 
   Widget allItemsVertical() {
@@ -41,7 +42,12 @@ class _HomeState extends State<Home> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const DetailScreen()));
+                                builder: (context) => DetailScreen(
+                                      details: ds['details'],
+                                      image: ds['image'],
+                                      price: ds['price'],
+                                      name: ds['name'],
+                                    )));
                       },
                       child: Container(
                         margin: const EdgeInsets.only(right: 10, bottom: 20),
@@ -56,7 +62,7 @@ class _HomeState extends State<Home> {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(20),
                                   child: Image.network(
-                                    ds['images'],
+                                    ds['image'],
                                     height: 120,
                                     width: 120,
                                     fit: BoxFit.cover,
@@ -82,7 +88,8 @@ class _HomeState extends State<Home> {
                                       width:
                                           MediaQuery.of(context).size.width / 2,
                                       child: Text(
-                                        'Honey Goa Cheese',
+                                        ds['details'],
+                                        maxLines: 1,
                                         style: AppWidget.lightTextStyle(),
                                       ),
                                     ),
@@ -119,12 +126,18 @@ class _HomeState extends State<Home> {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     DocumentSnapshot ds = snapshot.data.docs[index];
+
                     return InkWell(
                       onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const DetailScreen()));
+                                builder: (context) => DetailScreen(
+                                      details: ds['details'],
+                                      image: ds['image'],
+                                      price: ds['price'],
+                                      name: ds['name'],
+                                    )));
                       },
                       child: Container(
                         margin: const EdgeInsets.all(4),
@@ -139,7 +152,7 @@ class _HomeState extends State<Home> {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(20),
                                   child: Image.network(
-                                    ds['images'],
+                                    ds['image'],
                                     height: 150,
                                     width: 150,
                                     fit: BoxFit.cover,
@@ -153,7 +166,8 @@ class _HomeState extends State<Home> {
                                   height: 5,
                                 ),
                                 Text(
-                                  'Fresh and Healthy',
+                                  ds['details'],
+                                  maxLines: 1,
                                   style: AppWidget.lightTextStyle(),
                                 ),
                                 const SizedBox(
@@ -241,7 +255,7 @@ class _HomeState extends State<Home> {
             pizza = false;
             salad = false;
             burger = false;
-            foodItemStream = await MyDatabaseMethod().getFoodItem('iceCream');
+            foodItemStream = await MyDatabaseMethod().getFoodItem('Ice-Cream');
             setState(() {});
           },
           child: Material(
@@ -267,7 +281,7 @@ class _HomeState extends State<Home> {
             pizza = true;
             salad = false;
             burger = false;
-            foodItemStream = await MyDatabaseMethod().getFoodItem('pizza');
+            foodItemStream = await MyDatabaseMethod().getFoodItem('Pizza');
             setState(() {});
           },
           child: Material(
@@ -293,7 +307,7 @@ class _HomeState extends State<Home> {
             pizza = false;
             salad = true;
             burger = false;
-            foodItemStream = await MyDatabaseMethod().getFoodItem('salad');
+            foodItemStream = await MyDatabaseMethod().getFoodItem('Salad');
             setState(() {});
           },
           child: Material(
@@ -319,7 +333,7 @@ class _HomeState extends State<Home> {
             pizza = false;
             salad = false;
             burger = true;
-            foodItemStream = await MyDatabaseMethod().getFoodItem('burger');
+            foodItemStream = await MyDatabaseMethod().getFoodItem('Burger');
             setState(() {});
           },
           child: Material(

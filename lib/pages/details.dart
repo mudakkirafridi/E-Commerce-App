@@ -2,7 +2,13 @@ import 'package:e_commerce_app/widgets/widget_support.dart';
 import 'package:flutter/material.dart';
 
 class DetailScreen extends StatefulWidget {
-  const DetailScreen({super.key});
+  String name, image, price, details;
+  DetailScreen(
+      {super.key,
+      required this.name,
+      required this.details,
+      required this.image,
+      required this.price});
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -23,8 +29,8 @@ class _DetailScreenState extends State<DetailScreen> {
                   Navigator.pop(context);
                 },
                 child: const Icon(Icons.arrow_back_ios_new_outlined)),
-            Image.asset(
-              'images/salad.png',
+            Image.network(
+              widget.image,
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 2.5,
               fit: BoxFit.fill,
@@ -34,19 +40,12 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
             Row(
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Mediterraneam',
-                      style: AppWidget.semiBoldTextStyle(),
-                    ),
-                    Text(
-                      'Chicken Salad',
-                      style: AppWidget.boldTextFieldStyle(),
-                    ),
-                  ],
-                ),
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(
+                    widget.name,
+                    style: AppWidget.semiBoldTextStyle(),
+                  )
+                ]),
                 const Spacer(),
                 InkWell(
                   onTap: () {
@@ -98,8 +97,8 @@ class _DetailScreenState extends State<DetailScreen> {
               height: 20,
             ),
             Text(
-              'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem',
-              maxLines: 3,
+              widget.details,
+              maxLines: 1,
               style: AppWidget.lightTextStyle(),
             ),
             const SizedBox(
@@ -141,7 +140,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         style: AppWidget.semiBoldTextStyle(),
                       ),
                       Text(
-                        '\$28',
+                        widget.price,
                         style: AppWidget.headlineTextStyle(),
                       ),
                     ],
