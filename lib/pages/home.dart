@@ -191,55 +191,57 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        margin: const EdgeInsets.only(
-          top: 50,
-          left: 20,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Hello Mudakir,', style: AppWidget.boldTextFieldStyle()),
-                Container(
+      body: SingleChildScrollView(
+        child: Container(
+          margin: const EdgeInsets.only(
+            top: 50,
+            left: 20,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Hello Mudakir,', style: AppWidget.boldTextFieldStyle()),
+                  Container(
+                    margin: const EdgeInsets.only(right: 20),
+                    padding: const EdgeInsets.all(3),
+                    decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(8)),
+                    child: const Icon(
+                      Icons.shopping_cart_outlined,
+                      color: Colors.white,
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text('Delicious Food', style: AppWidget.headlineTextStyle()),
+              Text('Discover and Get Great Food',
+                  style: AppWidget.lightTextStyle()),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
                   margin: const EdgeInsets.only(right: 20),
-                  padding: const EdgeInsets.all(3),
-                  decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(8)),
-                  child: const Icon(
-                    Icons.shopping_cart_outlined,
-                    color: Colors.white,
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text('Delicious Food', style: AppWidget.headlineTextStyle()),
-            Text('Discover and Get Great Food',
-                style: AppWidget.lightTextStyle()),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-                margin: const EdgeInsets.only(right: 20),
-                child: showCategoryItem()),
-            const SizedBox(
-              height: 30,
-            ),
-            Container(
-              height: 270,
-              child: allItems(),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            allItemsVertical()
-          ],
+                  child: showCategoryItem()),
+              const SizedBox(
+                height: 30,
+              ),
+              Container(
+                height: 270,
+                child: allItems(),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              allItemsVertical()
+            ],
+          ),
         ),
       ),
     );

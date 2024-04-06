@@ -8,6 +8,14 @@ class MyDatabaseMethod {
         .set(userInfo);
   }
 
+  Future addFoodToCart(Map<String, dynamic> userInfo, String id) async {
+    return await FirebaseFirestore.instance
+        .collection('users')
+        .doc(id)
+        .collection('Cart')
+        .add(userInfo);
+  }
+
   //=================
   Future addFoodItem(Map<String, dynamic> userInfo, String name) async {
     return await FirebaseFirestore.instance.collection(name).add(userInfo);

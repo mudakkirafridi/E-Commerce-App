@@ -92,114 +92,117 @@ class _LogInScreenState extends State<LogInScreen> {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20)),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            Text(
-                              'Login',
-                              style: AppWidget.headlineTextStyle(),
-                            ),
-                            TextFormField(
-                              controller: emailController,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please Enter Email';
-                                }
-                              },
-                              decoration: InputDecoration(
-                                  hintText: "Email",
-                                  hintStyle: AppWidget.semiBoldTextStyle(),
-                                  prefixIcon: const Icon(Icons.email_outlined)),
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            TextFormField(
-                              controller: passwordController,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please Enter Password';
-                                }
-                              },
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                  hintText: "Password",
-                                  hintStyle: AppWidget.semiBoldTextStyle(),
-                                  prefixIcon: const Icon(Icons.lock_outline)),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Container(
-                              alignment: Alignment.bottomRight,
-                              child: TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const ForgotScreen()));
-                                },
-                                child: Text(
-                                  'Forgot Password?',
-                                  style: AppWidget.semiBoldTextStyle(),
-                                ),
+                      child: SingleChildScrollView(
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 30,
                               ),
-                            ),
-                            const SizedBox(
-                              height: 50,
-                            ),
-                            Material(
-                              elevation: 5,
-                              borderRadius: BorderRadius.circular(20),
-                              child: InkWell(
-                                onTap: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    setState(() {
-                                      email = emailController.text.toString();
-                                      password =
-                                          passwordController.text.toString();
-                                    });
-                                    logInFunction(
-                                        emailController.text.toString(),
-                                        passwordController.text.toString());
-                                    Navigator.pushReplacement(
+                              Text(
+                                'Login',
+                                style: AppWidget.headlineTextStyle(),
+                              ),
+                              TextFormField(
+                                controller: emailController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please Enter Email';
+                                  }
+                                },
+                                decoration: InputDecoration(
+                                    hintText: "Email",
+                                    hintStyle: AppWidget.semiBoldTextStyle(),
+                                    prefixIcon:
+                                        const Icon(Icons.email_outlined)),
+                              ),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              TextFormField(
+                                controller: passwordController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please Enter Password';
+                                  }
+                                },
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                    hintText: "Password",
+                                    hintStyle: AppWidget.semiBoldTextStyle(),
+                                    prefixIcon: const Icon(Icons.lock_outline)),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                alignment: Alignment.bottomRight,
+                                child: TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const Home()));
-                                  }
-                                },
-                                child: Material(
-                                  elevation: 30,
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Container(
-                                    width: 200,
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 8),
-                                    decoration: BoxDecoration(
-                                        color: const Color(0xffff5722),
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
-                                    child: const Center(
-                                      child: Text(
-                                        "LogIn",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontFamily: "Poppins",
-                                            fontWeight: FontWeight.bold),
+                                                const ForgotScreen()));
+                                  },
+                                  child: Text(
+                                    'Forgot Password?',
+                                    style: AppWidget.semiBoldTextStyle(),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 50,
+                              ),
+                              Material(
+                                elevation: 5,
+                                borderRadius: BorderRadius.circular(20),
+                                child: InkWell(
+                                  onTap: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      setState(() {
+                                        email = emailController.text.toString();
+                                        password =
+                                            passwordController.text.toString();
+                                      });
+                                      logInFunction(
+                                          emailController.text.toString(),
+                                          passwordController.text.toString());
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const BottomNav()));
+                                    }
+                                  },
+                                  child: Material(
+                                    elevation: 30,
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Container(
+                                      width: 200,
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8),
+                                      decoration: BoxDecoration(
+                                          color: const Color(0xffff5722),
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      child: const Center(
+                                        child: Text(
+                                          "LogIn",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontFamily: "Poppins",
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),

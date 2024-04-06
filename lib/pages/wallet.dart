@@ -13,7 +13,7 @@ class _WalletSreenState extends State<WalletSreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          margin: const EdgeInsets.only(top: 60),
+          margin: const EdgeInsets.only(top: 50),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

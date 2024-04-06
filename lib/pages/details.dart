@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/services/database_methods.dart';
 import 'package:e_commerce_app/widgets/widget_support.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,15 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  int quantity = 1;
+  int quantity = 1, total = 0;
+  String? id;
+
+  @override
+  void initState() {
+    super.initState();
+    total = int.parse(widget.price);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,6 +61,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     if (quantity > 1) {
                       setState(() {
                         --quantity;
+                        total = total - int.parse(widget.price);
                       });
                     }
                   },
@@ -79,6 +89,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   onTap: () {
                     setState(() {
                       ++quantity;
+                      total = total + int.parse(widget.price);
                     });
                   },
                   child: Container(
@@ -140,46 +151,57 @@ class _DetailScreenState extends State<DetailScreen> {
                         style: AppWidget.semiBoldTextStyle(),
                       ),
                       Text(
-                        widget.price,
+                        total.toString(),
                         style: AppWidget.headlineTextStyle(),
                       ),
                     ],
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 2,
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        boxShadow: const [
-                          BoxShadow(
-                              color: Colors.black38,
-                              blurRadius: 3,
-                              spreadRadius: 2)
-                        ],
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const Text(
-                          'Add To Card',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontFamily: 'Poppins'),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius: BorderRadius.circular(8)),
-                          child: const Icon(
-                            Icons.shopping_cart_outlined,
-                            color: Colors.white,
+                  InkWell(
+                    onTap: () async {
+                      Map<String, dynamic> addFoodCart = {
+                        "name": widget.name,
+                        "quantity": quantity.toString(),
+                        "total": total.toString(),
+                        "image": widget.image
+                      };
+                      await MyDatabaseMethod().addFoodToCart(addFoodCart, id!);
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 2,
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Colors.black38,
+                                blurRadius: 3,
+                                spreadRadius: 2)
+                          ],
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const Text(
+                            'Add To Card',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontFamily: 'Poppins'),
                           ),
-                        )
-                      ],
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.circular(8)),
+                            child: const Icon(
+                              Icons.shopping_cart_outlined,
+                              color: Colors.white,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   )
                 ],

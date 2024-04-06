@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:e_commerce_app/pages/bottom_nav.dart';
 import 'package:e_commerce_app/pages/home.dart';
 import 'package:e_commerce_app/pages/signup.dart';
 import 'package:e_commerce_app/widgets/widget_support.dart';
@@ -17,10 +18,10 @@ class _SplashScreenState extends State<SplashScreen> {
   isLogin() {
     if (FirebaseAuth.instance.currentUser != null) {
       return Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Home()));
+          context, MaterialPageRoute(builder: (context) => const BottomNav()));
     } else {
-      return Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => SignUpScreen()));
+      return Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const SignUpScreen()));
     }
   }
 
