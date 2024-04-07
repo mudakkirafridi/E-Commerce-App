@@ -1,8 +1,11 @@
 import 'package:e_commerce_app/pages/bottom_nav.dart';
 import 'package:e_commerce_app/pages/home.dart';
 import 'package:e_commerce_app/pages/login.dart';
+import 'package:e_commerce_app/services/database_methods.dart';
+import 'package:e_commerce_app/services/shared_pref_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:random_string/random_string.dart';
 
 import '../widgets/widget_support.dart';
 
@@ -31,6 +34,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
       if (e.code == 'weak-password') {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Your Password Is Weak')));
+        String id = randomAlphaNumeric(10);
+        Map<String, dynamic> addUserInfo = {
+          "name": nameController.text,
+          'email': emailController.text,
+          'waller': '0',
+          "id": id
+        };
+        await MyDatabaseMethod().addUserDetail(addUserInfo, id);
+        await SharedPrefHelper().saveUserEmail(emailController.text);
+        await SharedPrefHelper().saveUserWallet('0');
+        await SharedPrefHelper().saveUserId(id);
       } else if (e.code == 'email-already-in-use') {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Your Email Is Already In Use')));
