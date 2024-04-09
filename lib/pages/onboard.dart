@@ -43,24 +43,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 itemBuilder: (_, i) {
                   return Padding(
                     padding:
-                        const EdgeInsets.only(top: 40, right: 20, left: 20),
+                        const EdgeInsets.only(top: 20, right: 20, left: 20),
                     child: Column(
                       children: [
                         Image.asset(
                           content[i].image!,
-                          height: 450,
-                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height / 1.9,
+                          width: 300,
                           fit: BoxFit.fill,
                         ),
                         const SizedBox(
-                          height: 40,
+                          height: 20,
                         ),
                         Text(
                           content[i].title!,
                           style: AppWidget.semiBoldTextStyle(),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                         Text(
                           content[i].description!,
@@ -92,12 +92,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: Container(
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: Colors.red, borderRadius: BorderRadius.circular(20)),
-              height: 60,
+                  color: Colors.black, borderRadius: BorderRadius.circular(20)),
+              height: 50,
               margin: const EdgeInsets.all(40),
               width: double.infinity,
               child: Text(
-                currentIndex == content.length - 1 ? 'Start' : 'Next',
+                currentIndex == content.length - 1 ? 'Start' : '<== Swipe',
                 style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,

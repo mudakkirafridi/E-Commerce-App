@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/services/database_methods.dart';
+import 'package:e_commerce_app/services/shared_pref_helper.dart';
 import 'package:e_commerce_app/widgets/widget_support.dart';
 import 'package:flutter/material.dart';
 
@@ -19,9 +20,20 @@ class _DetailScreenState extends State<DetailScreen> {
   int quantity = 1, total = 0;
   String? id;
 
+  getTheSharedPref() async {
+    id = await SharedPrefHelper().getUserid();
+    setState(() {});
+  }
+
+  onTheLoad() async {
+    await getTheSharedPref();
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
+    onTheLoad();
     total = int.parse(widget.price);
   }
 
@@ -165,6 +177,8 @@ class _DetailScreenState extends State<DetailScreen> {
                         "image": widget.image
                       };
                       await MyDatabaseMethod().addFoodToCart(addFoodCart, id!);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Food Add To Cart')));
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width / 2,

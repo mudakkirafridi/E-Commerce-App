@@ -52,8 +52,8 @@ class _LogInScreenState extends State<LogInScreen> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
-                    Color(0xffff5c30),
-                    Color(0xffe74b1a),
+                    Colors.black,
+                    Colors.black12,
                   ])),
             ),
             Container(
@@ -153,7 +153,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                 ),
                               ),
                               const SizedBox(
-                                height: 50,
+                                height: 20,
                               ),
                               Material(
                                 elevation: 5,
@@ -184,7 +184,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 8),
                                       decoration: BoxDecoration(
-                                          color: const Color(0xffff5722),
+                                          color: Colors.black,
                                           borderRadius:
                                               BorderRadius.circular(20)),
                                       child: const Center(
@@ -208,7 +208,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     ),
                   ),
                   const SizedBox(
-                    height: 50,
+                    height: 30,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -242,11 +242,15 @@ class _LogInScreenState extends State<LogInScreen> {
                               builder: (context) => const AdminLoginScreen()));
                     },
                     child: Container(
-                      height: 30,
+                      height: 40,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(color: Colors.black)),
-                      child: const Center(child: Text('Admin LogIn')),
+                      child: Center(
+                          child: Text(
+                        'Admin LogIn',
+                        style: AppWidget.semiBoldTextStyle(),
+                      )),
                     ),
                   )
                 ],

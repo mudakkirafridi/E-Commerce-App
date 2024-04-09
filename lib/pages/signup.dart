@@ -62,13 +62,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height / 2.5,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                     gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: [
-                      Color(0xffff5c30),
-                      Color(0xffe74b1a),
+                      Colors.black,
+                      Colors.black12,
                     ])),
               ),
               Container(
@@ -120,7 +120,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   style: AppWidget.headlineTextStyle(),
                                 ),
                                 const SizedBox(
-                                  height: 30,
+                                  height: 20,
                                 ),
                                 TextFormField(
                                   validator: (value) {
@@ -169,10 +169,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           const Icon(Icons.lock_outline)),
                                 ),
                                 const SizedBox(
-                                  height: 20,
-                                ),
-                                const SizedBox(
-                                  height: 50,
+                                  height: 30,
                                 ),
                                 GestureDetector(
                                   onTap: () {
@@ -202,7 +199,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 8),
                                       decoration: BoxDecoration(
-                                          color: const Color(0xffff5722),
+                                          color: Colors.black,
                                           borderRadius:
                                               BorderRadius.circular(20)),
                                       child: const Center(
@@ -225,7 +222,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 50,
+                      height: 20,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

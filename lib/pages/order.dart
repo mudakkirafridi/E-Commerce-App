@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_app/services/database_methods.dart';
+import 'package:e_commerce_app/services/shared_pref_helper.dart';
 import 'package:e_commerce_app/widgets/widget_support.dart';
 import 'package:flutter/material.dart';
 
@@ -10,8 +14,35 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
-  String? id;
-  getTheSharedPref() async {}
+  String? id, wallet;
+  int? total = 0, amount2 = 0;
+
+  void startTimer() {
+    Timer(const Duration(seconds: 2), () {
+      amount2 = total;
+      setState(() {});
+    });
+  }
+
+  getTheSharedPref() async {
+    id = await SharedPrefHelper().getUserid();
+    wallet = await SharedPrefHelper().getUserWallet();
+    setState(() {});
+  }
+
+  onTheLoad() async {
+    await getTheSharedPref();
+    foodStram = await MyDatabaseMethod().getFoodCart(id!);
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    onTheLoad();
+    startTimer();
+    super.initState();
+  }
+
   Stream? foodStram;
 
   Widget foodCart() {
@@ -26,10 +57,12 @@ class _OrderScreenState extends State<OrderScreen> {
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
                     DocumentSnapshot ds = snapshot.data.docs[index];
+                    total = total! + int.parse(ds['total']);
                     return Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10)),
-                      margin: const EdgeInsets.only(right: 20, left: 20),
+                      margin: const EdgeInsets.only(
+                          right: 20, left: 20, bottom: 10),
                       child: Material(
                         elevation: 5,
                         borderRadius: BorderRadius.circular(10),
@@ -43,8 +76,8 @@ class _OrderScreenState extends State<OrderScreen> {
                                 decoration: BoxDecoration(
                                     border: Border.all(),
                                     borderRadius: BorderRadius.circular(10)),
-                                child: const Center(
-                                  child: Text('2'),
+                                child: Center(
+                                  child: Text(ds['quantity']),
                                 ),
                               ),
                               const SizedBox(
@@ -52,8 +85,8 @@ class _OrderScreenState extends State<OrderScreen> {
                               ),
                               ClipRRect(
                                   borderRadius: BorderRadius.circular(60),
-                                  child: Image.asset(
-                                    'images/food.png',
+                                  child: Image.network(
+                                    ds['image'],
                                     height: 90,
                                     width: 90,
                                     fit: BoxFit.cover,
@@ -64,11 +97,11 @@ class _OrderScreenState extends State<OrderScreen> {
                               Column(
                                 children: [
                                   Text(
-                                    'Pizza',
+                                    ds['name'],
                                     style: AppWidget.semiBoldTextStyle(),
                                   ),
                                   Text(
-                                    '\$30',
+                                    '\$${ds['price']}',
                                     style: AppWidget.semiBoldTextStyle(),
                                   ),
                                 ],
@@ -155,6 +188,9 @@ class _OrderScreenState extends State<OrderScreen> {
                 ),
               ),
             ),
+            Container(
+                height: MediaQuery.of(context).size.height / 2,
+                child: foodCart()),
             const Spacer(),
             const Divider(),
             Padding(
@@ -167,7 +203,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     style: AppWidget.headlineTextStyle(),
                   ),
                   Text(
-                    '\$50',
+                    '\$' + total.toString(),
                     style: AppWidget.semiBoldTextStyle(),
                   ),
                 ],
@@ -176,18 +212,27 @@ class _OrderScreenState extends State<OrderScreen> {
             const SizedBox(
               height: 20,
             ),
-            Container(
-              height: 50,
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              decoration: BoxDecoration(
-                  color: Colors.black, borderRadius: BorderRadius.circular(10)),
-              child: const Center(
-                child: Text(
-                  'Checkout',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
+            InkWell(
+              onTap: () async {
+                int amount = int.parse(wallet!) - amount2!;
+                await MyDatabaseMethod()
+                    .updateUserWaller(id!, amount.toString());
+                await SharedPrefHelper().saveUserWallet(amount.toString());
+              },
+              child: Container(
+                height: 50,
+                margin: const EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10)),
+                child: const Center(
+                  child: Text(
+                    'Checkout',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             ),

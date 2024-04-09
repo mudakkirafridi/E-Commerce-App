@@ -12,6 +12,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  bool isVisible = false;
   bool iceCream = false, pizza = false, salad = false, burger = false;
   Stream? foodItemStream;
   onTheLoad() async {
@@ -204,15 +205,36 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('Hello Mudakir,', style: AppWidget.boldTextFieldStyle()),
-                  Container(
-                    margin: const EdgeInsets.only(right: 20),
-                    padding: const EdgeInsets.all(3),
-                    decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(8)),
-                    child: const Icon(
-                      Icons.shopping_cart_outlined,
-                      color: Colors.white,
+                  Visibility(
+                    visible: isVisible,
+                    child: const SizedBox(
+                        width: 130,
+                        height: 20,
+                        child: TextField(
+                          decoration: InputDecoration(hintText: 'Search Food'),
+                        )),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        isVisible = !isVisible;
+                      });
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 20),
+                      padding: const EdgeInsets.all(3),
+                      decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(8)),
+                      child: isVisible
+                          ? const Icon(
+                              Icons.search_off_outlined,
+                              color: Colors.white,
+                            )
+                          : const Icon(
+                              Icons.search,
+                              color: Colors.white,
+                            ),
                     ),
                   )
                 ],

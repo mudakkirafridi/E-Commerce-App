@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:e_commerce_app/pages/bottom_nav.dart';
 import 'package:e_commerce_app/pages/home.dart';
+import 'package:e_commerce_app/pages/order.dart';
 import 'package:e_commerce_app/pages/signup.dart';
 import 'package:e_commerce_app/widgets/widget_support.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,9 +18,11 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   isLogin() {
     if (FirebaseAuth.instance.currentUser != null) {
+      print('if');
       return Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const BottomNav()));
     } else {
+      print('else');
       return Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (context) => const SignUpScreen()));
     }
@@ -28,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () {
+    Timer(Duration(seconds: 4), () {
       isLogin();
     });
   }
