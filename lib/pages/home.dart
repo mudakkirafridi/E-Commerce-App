@@ -3,6 +3,7 @@ import 'package:e_commerce_app/pages/details.dart';
 import 'package:e_commerce_app/services/database_methods.dart';
 import 'package:e_commerce_app/widgets/widget_support.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -98,7 +99,7 @@ class _HomeState extends State<Home> {
                                       width:
                                           MediaQuery.of(context).size.width / 2,
                                       child: Text(
-                                        ds['price'],
+                                        '\$' + ds['price'],
                                         style: AppWidget.semiBoldTextStyle(),
                                       ),
                                     )
@@ -175,7 +176,7 @@ class _HomeState extends State<Home> {
                                   height: 5,
                                 ),
                                 Text(
-                                  ds['price'],
+                                  '\$' + ds['price'],
                                   style: AppWidget.semiBoldTextStyle(),
                                 ),
                               ],
@@ -187,6 +188,14 @@ class _HomeState extends State<Home> {
                   })
               : const CircularProgressIndicator();
         });
+  }
+
+  String? name;
+  nameGet() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      name = sharedPreferences.getString("userName");
+    });
   }
 
   @override
@@ -204,7 +213,7 @@ class _HomeState extends State<Home> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Hello Mudakir,', style: AppWidget.boldTextFieldStyle()),
+                  Text('Hello ${name},', style: AppWidget.boldTextFieldStyle()),
                   Visibility(
                     visible: isVisible,
                     child: const SizedBox(

@@ -163,7 +163,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         style: AppWidget.semiBoldTextStyle(),
                       ),
                       Text(
-                        total.toString(),
+                        '\$' + total.toString(),
                         style: AppWidget.headlineTextStyle(),
                       ),
                     ],

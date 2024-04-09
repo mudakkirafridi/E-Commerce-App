@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
             seedColor: const Color.fromARGB(255, 252, 251, 253)),
         useMaterial3: true,
       ),
-      home: const BottomNav(),
+      home: const SplashScreen(),
     );
   }
 }

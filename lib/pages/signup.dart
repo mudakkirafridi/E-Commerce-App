@@ -6,6 +6,7 @@ import 'package:e_commerce_app/services/shared_pref_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:random_string/random_string.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../widgets/widget_support.dart';
 
@@ -41,6 +42,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           'waller': '0',
           "id": id
         };
+        SharedPreferences spName = await SharedPreferences.getInstance();
+        spName.setString("userName", nameController.text);
         await MyDatabaseMethod().addUserDetail(addUserInfo, id);
         await SharedPrefHelper().saveUserEmail(emailController.text);
         await SharedPrefHelper().saveUserWallet('0');
