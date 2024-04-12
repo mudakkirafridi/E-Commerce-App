@@ -42,8 +42,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           'waller': '0',
           "id": id
         };
-        SharedPreferences spName = await SharedPreferences.getInstance();
-        spName.setString("userName", nameController.text);
+
         await MyDatabaseMethod().addUserDetail(addUserInfo, id);
         await SharedPrefHelper().saveUserEmail(emailController.text);
         await SharedPrefHelper().saveUserWallet('0');
@@ -175,7 +174,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   height: 30,
                                 ),
                                 GestureDetector(
-                                  onTap: () {
+                                  onTap: () async {
                                     if (_formKey.currentState!.validate()) {
                                       setState(() {
                                         email = emailController.text.toString();
@@ -187,6 +186,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           nameController.text.toString(),
                                           emailController.text.toString(),
                                           passwordController.text.toString());
+
+                                      SharedPreferences spName =
+                                          await SharedPreferences.getInstance();
+                                      spName.setString(
+                                          "userName", nameController.text);
+
                                       Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(

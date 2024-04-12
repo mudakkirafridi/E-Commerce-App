@@ -13,6 +13,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String userNames = '';
   bool isVisible = false;
   bool iceCream = false, pizza = false, salad = false, burger = false;
   Stream? foodItemStream;
@@ -23,8 +24,14 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
+    getUserName();
     super.initState();
     onTheLoad();
+  }
+
+  getUserName() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    userNames = sp.getString('userName') ?? 'mudakir';
   }
 
   Widget allItemsVertical() {
@@ -190,14 +197,6 @@ class _HomeState extends State<Home> {
         });
   }
 
-  String? name;
-  nameGet() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    setState(() {
-      name = sharedPreferences.getString("userName");
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -213,7 +212,8 @@ class _HomeState extends State<Home> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Hello ${name},', style: AppWidget.boldTextFieldStyle()),
+                  Text('Hello ${userNames.toString()},',
+                      style: AppWidget.boldTextFieldStyle()),
                   Visibility(
                     visible: isVisible,
                     child: const SizedBox(

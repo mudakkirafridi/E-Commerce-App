@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/services/shared_pref_helper.dart';
 import 'package:e_commerce_app/widgets/widget_support.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,26 @@ class WalletSreen extends StatefulWidget {
 }
 
 class _WalletSreenState extends State<WalletSreen> {
+  String? wallet, id;
+  int? add;
+  TextEditingController amountController = TextEditingController();
+  getTheSharedPref() async {
+    wallet = await SharedPrefHelper().getUserWallet();
+    id = await SharedPrefHelper().getUserid();
+    setState(() {});
+  }
+
+  onTheLoad() async {
+    await getTheSharedPref();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    onTheLoad();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
