@@ -15,7 +15,7 @@ class OrderScreen extends StatefulWidget {
 
 class _OrderScreenState extends State<OrderScreen> {
   String? id, wallet;
-  int? total = 0, amount2 = 0;
+  int total = 0, amount2 = 0;
 
   void startTimer() {
     Timer(const Duration(seconds: 2), () {
@@ -32,7 +32,7 @@ class _OrderScreenState extends State<OrderScreen> {
 
   onTheLoad() async {
     await getTheSharedPref();
-    foodStram = await MyDatabaseMethod().getFoodCart(id!);
+    foodStram = await MyDatabaseMethod().getFoodCart(id ?? '1');
     setState(() {});
   }
 
@@ -57,7 +57,7 @@ class _OrderScreenState extends State<OrderScreen> {
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
                     DocumentSnapshot ds = snapshot.data.docs[index];
-                    total = total! + int.parse(ds['total']);
+                    total = total + int.parse(ds['total']);
                     return Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10)),
@@ -101,7 +101,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                     style: AppWidget.semiBoldTextStyle(),
                                   ),
                                   Text(
-                                    '\$${ds['price']}',
+                                    '${ds['total']}',
                                     style: AppWidget.semiBoldTextStyle(),
                                   ),
                                 ],
@@ -112,7 +112,7 @@ class _OrderScreenState extends State<OrderScreen> {
                       ),
                     );
                   })
-              : const CircularProgressIndicator();
+              : const Center(child: CircularProgressIndicator());
         });
   }
 
@@ -133,63 +133,61 @@ class _OrderScreenState extends State<OrderScreen> {
             const Divider(
               thickness: 2,
             ),
-            const SizedBox(
-              height: 20,
-            ),
+
+            // Container(
+            //   decoration:
+            //       BoxDecoration(borderRadius: BorderRadius.circular(10)),
+            //   margin: const EdgeInsets.only(right: 20, left: 20),
+            //   child: Material(
+            //     elevation: 5,
+            //     borderRadius: BorderRadius.circular(10),
+            //     child: Container(
+            //       padding: const EdgeInsets.all(10),
+            //       child: Row(
+            //         children: [
+            //           Container(
+            //             height: 90,
+            //             width: 40,
+            //             decoration: BoxDecoration(
+            //                 border: Border.all(),
+            //                 borderRadius: BorderRadius.circular(10)),
+            //             child: const Center(
+            //               child: Text('2'),
+            //             ),
+            //           ),
+            //           const SizedBox(
+            //             width: 20,
+            //           ),
+            //           ClipRRect(
+            //               borderRadius: BorderRadius.circular(60),
+            //               child: Image.asset(
+            //                 'images/food.png',
+            //                 height: 90,
+            //                 width: 90,
+            //                 fit: BoxFit.cover,
+            //               )),
+            //           const SizedBox(
+            //             width: 20,
+            //           ),
+            //           Column(
+            //             children: [
+            //               Text(
+            //                 'Pizza',
+            //                 style: AppWidget.semiBoldTextStyle(),
+            //               ),
+            //               Text(
+            //                 '\$30',
+            //                 style: AppWidget.semiBoldTextStyle(),
+            //               ),
+            //             ],
+            //           )
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Container(
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
-              margin: const EdgeInsets.only(right: 20, left: 20),
-              child: Material(
-                elevation: 5,
-                borderRadius: BorderRadius.circular(10),
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 90,
-                        width: 40,
-                        decoration: BoxDecoration(
-                            border: Border.all(),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: const Center(
-                          child: Text('2'),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      ClipRRect(
-                          borderRadius: BorderRadius.circular(60),
-                          child: Image.asset(
-                            'images/food.png',
-                            height: 90,
-                            width: 90,
-                            fit: BoxFit.cover,
-                          )),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            'Pizza',
-                            style: AppWidget.semiBoldTextStyle(),
-                          ),
-                          Text(
-                            '\$30',
-                            style: AppWidget.semiBoldTextStyle(),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Container(
-                height: MediaQuery.of(context).size.height / 2,
+                height: MediaQuery.of(context).size.height / 2.2,
                 child: foodCart()),
             const Spacer(),
             const Divider(),

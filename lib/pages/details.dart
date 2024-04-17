@@ -176,9 +176,15 @@ class _DetailScreenState extends State<DetailScreen> {
                         "total": total.toString(),
                         "image": widget.image
                       };
-                      await MyDatabaseMethod().addFoodToCart(addFoodCart, id!);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Food Add To Cart')));
+                      await MyDatabaseMethod()
+                          .addFoodToCart(addFoodCart, id ?? '1')
+                          .then((value) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Food Add To Cart')));
+                      }).onError((error, stackTrace) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(error.toString())));
+                      });
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width / 2,
